@@ -1,15 +1,17 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
+import ErrorPage from './component/ErrorPage/ErrorPage.jsx';
+import Home from './component/Home/Home.jsx';
+import ListedBooks from './component/ListedBooks/ListedBooks.jsx';
+import PageToRead from './component/PageToRead/PageToRead.jsx';
+import BookDetails from './component/BookDetails/BookDetails.jsx';
 import Root from './component/Root/Root.jsx';
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import ErrorPage from './component/ErrorPage/ErrorPage.jsx';
-import Home from './component/Home/Home.jsx';
-import ListedBooks from './component/ListedBooks/ListedBooks.jsx';
-import PageToRead from './component/PageToRead/PageToRead.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -22,8 +24,14 @@ const router = createBrowserRouter([
         element:<Home></Home>
       },
       {
+        path:"books/:bookId",
+        element:<BookDetails></BookDetails>,
+        loader:()=>fetch('/booksData.json')
+      },
+      {
         path: "/listed-books", // Add the Listed Books route
-        element: <ListedBooks></ListedBooks>
+        element: <ListedBooks></ListedBooks>,
+        loader:()=>fetch('/booksData.json')
       },
       {
         path: "/pages-to-read", // Add the Pages to Read route
